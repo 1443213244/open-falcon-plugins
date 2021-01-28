@@ -49,13 +49,13 @@ def get_send_json(port):
 
 
 def main():
-    monitor_port = {
-        10157,
-        12308
-    }
+    a=[]
+    for i in range(10157,10158):
+        a.append(i)
+    monitor_port=set(a)
 
-    for port in monitor_port:
-        get_send_json(port)
+    for j in monitor_port:
+        get_send_json(j)
 
 main()
 print payload_lst
