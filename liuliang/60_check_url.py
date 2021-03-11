@@ -1,62 +1,74 @@
+#!/usr/bin/python
+# coding: utf-8
+
 import sys
 import os
 import time
 import requests
 import json
 import re
-from collections import defaultdict
 
-playload_lst = list()
 ts = int(time.time())
-urls = [
-        "https://seller.xiapi.shopee.cn/webchat/conversations",
-        "https://seller.vn.shopee.cn/webchat/conversations",
-        "https://seller.ph.shopee.cn/webchat/conversations",
-        "https://seller.sg.shopee.cn/webchat/conversations",
-        "https://seller.id.shopee.cn/webchat/conversations",
-        "https://seller.my.shopee.cn/webchat/conversations",
-        "https://deo.shopeemobile.com/shopee/shopee-seller-live-ph/webchat/1.styles.41e680b4985003867eca.css"
-        ]
+payload_lst = []
+
+
+def add_iptables_port(port):
+    os.system('iptables -I INPUT -p tcp --dport '+str(port))
+
+
+def get_mon_by_port(port):
+    #print port
+    command = ''' iptables -L -n -v -x| grep {}'''.format(port)
+    res = os.popen(command)
+    res=res.readlines()
+
+    if res:
+        res = ','.join(filter(lambda x: x, res[0].split(' '))).split(',')
+        #res=res[0].replace(" ","")
+        pkt=res[0]
+        byte=res[1]
+        return {
+            'packet-received': pkt,
+            'byte-received': byte
+        }
+    else:
+        add_iptables_port(port)
+
 
 def get_hostname():
     res_command = os.popen('hostname').read().strip()
     return res_command if res_command else 'unknown'
 
-def check_url(urls):
-    metric = defaultdict(dict)
-    for url in urls:
-        domain = url.split("/")
-        try:
-            response = requests.get(url)
-            if response.status_code == 200:
-                metric[domain[2]]['url-status'] = 1
 
-        except Exception as e:
-            metric[domain[2]]['url-status'] = 0
-    playload = get_send_json(metric)
-
-def get_send_json(metric=None):
-    for tag in metric.keys():
-        for k, v in metric[tag].items():
-            playload = {
-                "endpoint": get_hostname(),
-                "metric": k,
-                "timestamp": int(time.time()),
-                "step": 60,
-                "value": v,
-                "counterType": "GAUGE",
-                "tags": "domain=%s" % tag
-            }
-
-            playload_lst.append(playload)
-
-    return playload_lst
-
+def get_send_json(port):
+    info_dict = get_mon_by_port(port)
+    try:
+        for k, v in info_dict.items():
+            payload = {
+                    "endpoint": get_hostname(),
+                    "metric": k,
+                    "timestamp": ts,
+                    "step": 60,
+                    "value": v,
+                    "counterType": "COUNTER",
+                    "tags": "port={port}".format(port=port)
+                }
+            payload_lst.append(payload)
+    except Exception as e:
+        print e
 
 
 def main():
-    check_url(urls)
+    a=[]
+    for i in range(12269,12522):
+        a.append(i)
+    monitor_port=set(a)
+
+    for j in monitor_port:
+        get_send_json(j)
 
 main()
-r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(playload_lst))
+print payload_lst
+r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(payload_lst))
 #print r.text
+
