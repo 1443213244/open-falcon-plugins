@@ -15,8 +15,7 @@ urls = [
         "https://seller.sg.shopee.cn/webchat/conversations",
         "https://seller.id.shopee.cn/webchat/conversations",
         "https://seller.my.shopee.cn/webchat/conversations",
-        "https://deo.shopeemobile.com/shopee/shopee-seller-live-ph/webchat/1.styles.41e680b4985003867eca.css",
-        "https://dkdkdk.dldldldldldldldldldl.com"
+        "https://deo.shopeemobile.com/shopee/shopee-seller-live-ph/webchat/1.styles.41e680b4985003867eca.css"
         ]
 
 def get_hostname():
