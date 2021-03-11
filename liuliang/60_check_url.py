@@ -58,7 +58,5 @@ def main():
     check_url(urls)
 
 main()
-data=json.dumps(playload_lst)
-print playload_lst
 r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(playload_lst))
 #print r.text
