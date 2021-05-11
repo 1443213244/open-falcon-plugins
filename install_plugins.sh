@@ -1,3 +1,4 @@
+#!/bin/bash
 pid=`ps -ef|grep server.py|grep python|awk '{print $2}'`
 port=`ss -lnp |grep pid=$pid|grep tcp|sort -g|awk -F" " '{ print $5}'|awk -F":" '{ print $2}'|sort -g|head -1`
 let end=port+252
