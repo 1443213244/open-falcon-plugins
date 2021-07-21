@@ -40,11 +40,11 @@ def get_send_json():
         playload = {
             "endpoint": get_hostname(),
             "metric": k,
-            "timestamp": int(time.time()),
-            "step": 60,
+            "timestamp": ts,
+            "step": 120,
             "value": v,
-            "counterType": "COUNTER",
-            "tags": "listen=port"
+            "counterType": "GAUGE",
+            "tags": "listen=ports",
             }
 
         playload_lst.append(playload)
@@ -57,3 +57,4 @@ def main():
     print(a)
 
 main()
+r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(playload_lst))
