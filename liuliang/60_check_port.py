@@ -41,7 +41,7 @@ def get_send_json():
             "endpoint": get_hostname(),
             "metric": k,
             "timestamp": ts,
-            "step": 120,
+            "step": 60,
             "value": v,
             "counterType": "GAUGE",
             "tags": "listen=ports",
