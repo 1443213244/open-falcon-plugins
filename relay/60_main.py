@@ -188,7 +188,7 @@ if __name__ == '__main__':
     #      schedule.run_pending()
     # tags = "project=ops,"
     p = []
-    tags = "host=%s,description=%s" % (get_hostname(), 'caiyingtong ziyou')
+    tags = ""
     value = 1
     p.append(updateData(tags, value))
   
