@@ -58,7 +58,7 @@ with open(file) as f:
         domain = results[0]
         description = results[1]
         # tags = "project=ops,"
-        tags = "domain=%s,description=%s"%(domain,description)
+        tags = "domain=%s"%(domain)
         value = checkDNS(domain)
 
         p.append(updateData(tags,value))
