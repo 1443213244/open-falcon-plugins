@@ -4,6 +4,7 @@
 import os, sys, re
 import json
 
+from dns.resolver import Resolver
 import dns.resolver
 import requests
 import time
@@ -23,8 +24,11 @@ def get_hostname():
 
 def checkDNS(domain):
     try:
-       query = dns.resolver.query(domain, 'A')
-       if query.response.answer:
+        res = dns.resolver.Resolver()
+        res.lifetime = 1
+        res.timeout = 1
+        query = res.query(domain, 'A')
+        if query.response.answer:
            result = 1
     except:
         result = 0
@@ -58,7 +62,7 @@ with open(file) as f:
         domain = results[0]
         description = results[1]
         # tags = "project=ops,"
-        tags = "domain=%s"%(domain)
+        tags = "description=%s"%(description)
         value = checkDNS(domain)
 
         p.append(updateData(tags,value))
