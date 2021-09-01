@@ -60,6 +60,5 @@ with open("domain") as f:
 
         p.append(updateData(tags,value))
 
-print json.dumps(p, sort_keys=True, indent=4)
-# r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(p, sort_keys=True,indent = 4))
-# print r.text
+r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(p, sort_keys=True,indent = 4))
+print r.text

@@ -191,6 +191,6 @@ if __name__ == '__main__':
     tags = "host=%s,description=%s" % (get_hostname(), 'caiyingtong ziyou')
     value = 1
     p.append(updateData(tags, value))
-    print json.dumps(p, sort_keys=True, indent=4)
-    # r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(p, sort_keys=True, indent=4))
-    # print r.text
+  
+    r = requests.post("http://127.0.0.1:1988/v1/push", data=json.dumps(p, sort_keys=True, indent=4))
+    print r.text
