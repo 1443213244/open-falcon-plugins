@@ -10,6 +10,8 @@ import time
 import urllib2, base64
 from socket import *
 
+PATH = os.path.dirname(os.path.realpath(__file__))
+file = PATH+'/domain'
 timestamp = int(time.time())
 step = 60
 counterType = "GAUGE"
@@ -49,7 +51,8 @@ def updateData(tags = '', value = ''):
     return i
 
 p = []
-with open("domain") as f:
+
+with open(file) as f:
     for line in f:
         results = re.findall("(\S+)",line)
         domain = results[0]
