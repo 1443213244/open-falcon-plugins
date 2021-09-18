@@ -18,6 +18,7 @@ urls = [
         "https://seller.id.shopee.cn/webchat/conversations",
         "https://seller.my.shopee.cn/webchat/conversations",
         "https://deo.shopeemobile.com/shopee/shopee-seller-live-ph/webchat/1.styles.41e680b4985003867eca.css",
+        "https://deo.shopeesz.com/shopee/shopee-cnsc-live-sg/moduleshost/static/vendor/css/index.f2c4d3458500acf6fe57.css",
         "https://console.aws.amazon.com/support/home#/case/create",
         "https://sellercentral.amazon.com/",
         "https://fast.com",
