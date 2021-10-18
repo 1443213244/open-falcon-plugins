@@ -24,7 +24,6 @@ urls = [
         "https://fast.com",
         "https://shopify.com",
         "https://business.facebook.com",
-        "https://www.twgolifestore.com",
         "https://api.ip.sb/ip"
         ]
 
