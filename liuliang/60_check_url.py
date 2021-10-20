@@ -7,6 +7,9 @@ import requests
 import json
 import re
 from collections import defaultdict
+import urllib3
+
+urllib3.disable_warnings()
 
 playload_lst = list()
 ts = int(time.time())
@@ -36,7 +39,7 @@ def check_url(urls):
     for url in urls:
         domain = url.split("/")
         try:
-            response = requests.get(url)
+            response = requests.get(url,verify=False)
             if response.status_code == 200:
                 metric[domain[2]]['url-status'] = 1
 
