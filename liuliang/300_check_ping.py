@@ -13,7 +13,7 @@ from collections import defaultdict
 ts = int(time.time())
 ips=[
    '173.248.242.175',
-   '69.172.75.87'
+   '69.172.74.87'
     ]
 def get_mon_by_port():
     losss=[]
